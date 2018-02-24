@@ -3,7 +3,7 @@ namespace RickAndMortyApi.Db
 open System
 open System.Collections.Generic
 
-type Titan = {
+type RickAndMortyCharacter = {
     Id : int
     Name : string
     Status : string
@@ -15,7 +15,7 @@ type Titan = {
 module Db =
     open FSharp.Data
 
-    let resourceStore = new Dictionary<int, Titan>()
+    let resourceStore = new Dictionary<int, RickAndMortyCharacter>()
 
     let [<Literal>] URL = "https://rickandmortyapi.com/api/"
     let [<Literal>] CharacterUrl = URL + "character/1"
@@ -64,7 +64,7 @@ module Db =
             resourceStore.Add(newCharacter.Id, newCharacter))
     
     let getCharacters () =
-        resourceStore.Values :> seq<Titan>
+        resourceStore.Values :> seq<RickAndMortyCharacter>
     let getCharacterById id =
         if resourceStore.ContainsKey(id) then
             Some resourceStore.[id]
