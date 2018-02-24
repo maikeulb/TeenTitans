@@ -27,7 +27,7 @@ module Characters =
         let getString rawForm = System.Text.Encoding.UTF8.GetString(rawForm)
         req.rawForm |> getString |> fromJson<'a>
 
-    type TitansResource<'a> = {
+    type CharactersResource<'a> = {
         GetCharacters : unit -> 'a seq
         GetCharacterById : int -> 'a option
         CharacterExists : int -> bool
