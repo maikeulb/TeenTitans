@@ -2,5 +2,6 @@ source https://www.nuget.org/api/v2
 framework: net461
 nuget FAKE
 nuget FSharp.Core
+nuget Fsharp.Data
 nuget Newtonsoft.Json
 nuget Suave
