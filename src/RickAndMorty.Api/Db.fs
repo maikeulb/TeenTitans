@@ -17,11 +17,11 @@ module Db =
     let [<Literal>] CharacterUrl = URL + "character/1"
     let [<Literal>] PageCharacterUrl = URL + "character/"
 
-    type SWAPI = JsonProvider<URL>
+    type RAMAPI = JsonProvider<URL>
     type PageCharacter = JsonProvider<PageCharacterUrl>
     type Character = JsonProvider<CharacterUrl>
 
-    let root = SWAPI.GetSample()
+    let root = RAMAPI.GetSample()
     let buildUrl url id = sprintf "%s%s" url id
 
     let loadCharacter (pageUrl) = 
@@ -34,7 +34,7 @@ module Db =
            }
        iter pageUrl
 
-    let starWarsCharacter = loadCharacter root.Characters
+    let rickAndMortyCharacter = loadCharacter root.Characters
 
     let extractNumber (s : string) =
         let nums = 
@@ -47,7 +47,7 @@ module Db =
         | true -> num
         | false -> failwith "No number present"
 
-    starWarsCharacter
+    rickAndMortyCharacter
     |> Seq.iter (fun p -> 
             let newPerson = {
                 Id          = p.Url.Substring(PageCharacterUrl.Length) |> extractNumber
@@ -55,31 +55,31 @@ module Db =
             }
             resourceStore.Add(newPerson.Id, newPerson))
     
-    let getTitans () =
+    let getCharacters () =
         resourceStore.Values :> seq<Titan>
-    let getTitanById id =
+    let getCharacterById id =
         if resourceStore.ContainsKey(id) then
             Some resourceStore.[id]
         else
             None
-    let createTitan person =
+    let createCharacter person =
         let id = resourceStore.Values.Count + 1
-        let newTitan = {person with Id = id}
-        resourceStore.Add(id, newTitan)
-        newTitan
+        let newCharacter = {person with Id = id}
+        resourceStore.Add(id, newCharacter)
+        newCharacter
 
-    let updateTitanById personId personToBeUpdated =
+    let updateCharacterById personId personToBeUpdated =
         if resourceStore.ContainsKey(personId) then
-            let updatedTitan = {personToBeUpdated with Id = personId}
-            resourceStore.[personId] <- updatedTitan
-            Some updatedTitan
+            let updatedCharacter = {personToBeUpdated with Id = personId}
+            resourceStore.[personId] <- updatedCharacter
+            Some updatedCharacter
         else
             None
 
-    let updateTitan personToBeUpdated =
-        updateTitanById personToBeUpdated.Id personToBeUpdated
+    let updateCharacter personToBeUpdated =
+        updateCharacterById personToBeUpdated.Id personToBeUpdated
 
-    let deleteTitan personId =
+    let deleteCharacter personId =
         resourceStore.Remove(personId) |> ignore
 
-    let titanExists  = resourceStore.ContainsKey
+    let characterExists  = resourceStore.ContainsKey

@@ -28,13 +28,13 @@ module Titans =
         req.rawForm |> getString |> fromJson<'a>
 
     type TitansResource<'a> = {
-        GetTitans : unit -> 'a seq
-        GetTitanById : int -> 'a option
-        TitanExists : int -> bool
-        CreateTitan : 'a -> 'a
-        UpdateTitan : 'a -> 'a option
-        UpdateTitanById : int -> 'a -> 'a option
-        DeleteTitan : int -> unit
+        GetCharacters : unit -> 'a seq
+        GetCharacterById : int -> 'a option
+        CharacterExists : int -> bool
+        CreateCharacter : 'a -> 'a
+        UpdateCharacter : 'a -> 'a option
+        UpdateCharacterById : int -> 'a -> 'a option
+        DeleteCharacter : int -> unit
     }
 
     let rest resourceName resource =
@@ -46,22 +46,22 @@ module Titans =
             | Some r -> r |> JSON
             | _ -> requestError
 
-        let getAllResources= warbler (fun _ -> resource.GetTitans () |> JSON)
+        let getAllResources= warbler (fun _ -> resource.GetCharacters () |> JSON)
         let getResourceById =
-            resource.GetTitanById >> handleResource (NOT_FOUND "Titan not found")
+            resource.GetCharacterById >> handleResource (NOT_FOUND "Character not found")
         let updateResourceById id =
-            request (getResourceFromReq >> (resource.UpdateTitanById id) >> handleResource badRequest)
+            request (getResourceFromReq >> (resource.UpdateCharacterById id) >> handleResource badRequest)
         let deleteResourceById id =
-            resource.DeleteTitan id
+            resource.DeleteCharacter id
             NO_CONTENT
         let ResourceExists id =
-            if resource.TitanExists id then OK "" else NOT_FOUND ""
+            if resource.CharacterExists id then OK "" else NOT_FOUND ""
 
         choose [
             path resourcePath >=> choose [
                 GET >=> getAllResources
-                POST >=> request (getResourceFromReq >> resource.CreateTitan >> JSON)
-                PUT >=> request (getResourceFromReq >> resource.UpdateTitan >> handleResource badRequest)
+                POST >=> request (getResourceFromReq >> resource.CreateCharacter >> JSON)
+                PUT >=> request (getResourceFromReq >> resource.UpdateCharacter >> handleResource badRequest)
             ]
             DELETE >=> pathScan resourceIdPath deleteResourceById
             GET >=> pathScan resourceIdPath getResourceById

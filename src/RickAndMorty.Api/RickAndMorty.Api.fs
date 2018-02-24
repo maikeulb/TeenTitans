@@ -9,17 +9,17 @@ module App =
     [<EntryPoint>]
     let main argv =
 
-        let titansWebPart = rest "api/titans" {
-            GetTitans = Db.getTitans
-            GetTitanById = Db.getTitanById
-            CreateTitan = Db.createTitan
-            UpdateTitan = Db.updateTitan
-            UpdateTitanById = Db.updateTitanById
-            DeleteTitan = Db.deleteTitan
-            TitanExists = Db.titanExists
+        let charactersWebPart = rest "api/characters" {
+            GetCharacters = Db.getCharacters
+            GetCharacterById = Db.getCharacterById
+            CreateCharacter = Db.createCharacter
+            UpdateCharacter = Db.updateCharacter
+            UpdateCharacterById = Db.updateCharacterById
+            DeleteCharacter = Db.deleteCharacter
+            CharacterExists = Db.characterExists
         }
 
-        let app = titansWebPart
+        let app = charactersWebPart
 
         startWebServer defaultConfig app
 
