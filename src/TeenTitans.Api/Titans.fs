@@ -8,8 +8,8 @@ module Titans =
         jsonSerializerSettings.ContractResolver <- new CamelCasePropertyNamesContractResolver()
     
         JsonConvert.SerializeObject(v, jsonSerializerSettings)
-	|> OK 
-	>=> Writers.setMimeType "application/json; charset=utf-8"
+        |> OK 
+        >=> Writers.setMimeType "application/json; charset=utf-8"
 
     let fromJson<'a> json =
         JsonConvert.DeserializeObject(json, typeof<'a>) :?> 'a    
@@ -20,9 +20,9 @@ module Titans =
 
 
     type TitansResource<'a> = {
-        GetAllTitans : unit -> 'a seq        
+	GetAllTitans : unit -> 'a seq        
         GetTitanById : int -> 'a option        
-	TitanExists : int -> 'a bool        
+        TitanExists : int -> 'a bool        
         CreateTitan : 'a -> 'a
         UpdateTitan : 'a -> 'a option
         UpdateTitanById : int -> 'a -> 'a option
