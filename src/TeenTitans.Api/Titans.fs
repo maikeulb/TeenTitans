@@ -1,4 +1,4 @@
-namespace TeenTitansApi.Rest
+namespace RickAndMortyApi.Rest
 
 open Newtonsoft.Json
 open Newtonsoft.Json.Serialization

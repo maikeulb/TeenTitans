@@ -1,16 +1,16 @@
-namespace TeenTitansApi
+namespace RickAndMortyApi
 
 module App =
     open Suave.Web
-    open TeenTitansApi.Rest
-    open TeenTitansApi.Db
+    open RickAndMortyApi.Rest
+    open RickAndMortyApi.Db
     open Suave
 
     [<EntryPoint>]
     let main argv =
 
         let titansWebPart = rest "api/titans" {
-            GetTitans = Db.getTitan
+            GetTitans = Db.getTitans
             GetTitanById = Db.getTitanById
             CreateTitan = Db.createTitan
             UpdateTitan = Db.updateTitan
