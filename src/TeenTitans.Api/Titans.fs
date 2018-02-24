@@ -23,6 +23,10 @@ module Titans =
         GetAllTitans : unit -> 'a seq        
         GetTitanById : int -> 'a option        
 	TitanExists : int -> 'a bool        
+        CreateTitan : 'a -> 'a
+        UpdateTitan : 'a -> 'a option
+        UpdateTitanById : int -> 'a -> 'a option
+        DeleteTitan : int -> unit
     }
 
     let rest resourceName resource =
@@ -37,13 +41,22 @@ module Titans =
         let getAllResources= warbler (fun _ -> resource.GetAll () |> JSON)
         let getResourceById = 
             resource.GetTitanById >> handleResource (NOT_FOUND "Titan not found")
+        let updateResourceById id =
+            request (getResourceFromReq >> (resource.UpdateTitanById id) >> handleResource badRequest)
+        let deleteResourceById id =
+            resource.DeleteTitan id
+            NO_CONTENT
         let ResourceExists id =
             if resource.TitanExists id then OK "" else NOT_FOUND ""
 
         choose [
             path resourcePath >=> choose [
                 GET >=> getAllResources
+                POST >=> request (getResourceFromReq >> resource.CreateResource >> JSON)
+                PUT >=> request (getResourceFromReq >> resource.UpdateResource >> handleResource badRequest)
             ]
+            DELETE >=> pathScan resourceIdPath deleteResourceById
             GET >=> pathScan resourceIdPath getResourceById
+            PUT >=> pathScan resourceIdPath updateResourceById
             HEAD >=> pathScan resourceIdPath ResourceExists
         ]
