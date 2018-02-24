@@ -1,27 +1,26 @@
 namespace TeenTitansApi
 
-module App =   
+module App =
     open Suave.Web
-    open SuaveRestApi.Rest
-    open SuaveRestApi.Db
-    open SuaveRestApi.MusicStoreDb
+    open TeenTitansApi.Rest
+    open TeenTitansApi.Db
     open Suave
 
     [<EntryPoint>]
-    let main argv =    
+    let main argv =
 
-        let titansWebPart = rest "titan" {
-            GetAllTitans = Db.getTitan
-            GetByTitanId = Db.getTitan
+        let titansWebPart = rest "api/titans" {
+            GetTitans = Db.getTitan
+            GetTitanById = Db.getTitanById
             CreateTitan = Db.createTitan
             UpdateTitan = Db.updateTitan
             UpdateTitanById = Db.updateTitanById
             DeleteTitan = Db.deleteTitan
-            TitanExists = Db.isTitanExists
+            TitanExists = Db.titanExists
         }
 
-	let app = choose[titanWebPart]
+        let app = titansWebPart
 
         startWebServer defaultConfig app
-            
+
         0

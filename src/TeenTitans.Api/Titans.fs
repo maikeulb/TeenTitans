@@ -1,28 +1,36 @@
 namespace TeenTitansApi.Rest
 
-[<AutoOpen>]
-module Titans =  
+open Newtonsoft.Json
+open Newtonsoft.Json.Serialization
+open Suave
+open Suave.Operators
+open Suave.Http
+open Suave.Successful
 
-    let JSON v =     
+[<AutoOpen>]
+module Titans =
+    open Suave.RequestErrors
+    open Suave.Filters
+
+    let JSON v =
         let jsonSerializerSettings = new JsonSerializerSettings()
         jsonSerializerSettings.ContractResolver <- new CamelCasePropertyNamesContractResolver()
-    
+
         JsonConvert.SerializeObject(v, jsonSerializerSettings)
-        |> OK 
+        |> OK
         >=> Writers.setMimeType "application/json; charset=utf-8"
 
     let fromJson<'a> json =
-        JsonConvert.DeserializeObject(json, typeof<'a>) :?> 'a    
+        JsonConvert.DeserializeObject(json, typeof<'a>) :?> 'a
 
-    let getResourceFromReq<'a> (req : HttpRequest) = 
+    let getResourceFromReq<'a> (req : HttpRequest) =
         let getString rawForm = System.Text.Encoding.UTF8.GetString(rawForm)
         req.rawForm |> getString |> fromJson<'a>
 
-
     type TitansResource<'a> = {
-	GetAllTitans : unit -> 'a seq        
-        GetTitanById : int -> 'a option        
-        TitanExists : int -> 'a bool        
+        GetTitans : unit -> 'a seq
+        GetTitanById : int -> 'a option
+        TitanExists : int -> bool
         CreateTitan : 'a -> 'a
         UpdateTitan : 'a -> 'a option
         UpdateTitanById : int -> 'a -> 'a option
@@ -38,8 +46,8 @@ module Titans =
             | Some r -> r |> JSON
             | _ -> requestError
 
-        let getAllResources= warbler (fun _ -> resource.GetAll () |> JSON)
-        let getResourceById = 
+        let getAllResources= warbler (fun _ -> resource.GetTitans () |> JSON)
+        let getResourceById =
             resource.GetTitanById >> handleResource (NOT_FOUND "Titan not found")
         let updateResourceById id =
             request (getResourceFromReq >> (resource.UpdateTitanById id) >> handleResource badRequest)
@@ -52,8 +60,8 @@ module Titans =
         choose [
             path resourcePath >=> choose [
                 GET >=> getAllResources
-                POST >=> request (getResourceFromReq >> resource.CreateResource >> JSON)
-                PUT >=> request (getResourceFromReq >> resource.UpdateResource >> handleResource badRequest)
+                POST >=> request (getResourceFromReq >> resource.CreateTitan >> JSON)
+                PUT >=> request (getResourceFromReq >> resource.UpdateTitan >> handleResource badRequest)
             ]
             DELETE >=> pathScan resourceIdPath deleteResourceById
             GET >=> pathScan resourceIdPath getResourceById

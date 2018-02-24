@@ -6,7 +6,7 @@ type Titan = {
     Id : int
     Name : string
     Age : int
-    Email : string
+    Mentor : string
 }
 
 module Db =
@@ -14,7 +14,7 @@ module Db =
     let titanStorage = new Dictionary<int, Titan>()
     let getTitan () =
         titanStorage.Values :> seq<Titan>
-    let getTitan id =
+    let getTitanById id =
         if titanStorage.ContainsKey(id) then
             Some titanStorage.[id]
         else
@@ -39,5 +39,4 @@ module Db =
     let deleteTitan personId =
         titanStorage.Remove(personId) |> ignore
 
-    let TitanExists  = titanStorage.ContainsKey
-
+    let titanExists  = titanStorage.ContainsKey
