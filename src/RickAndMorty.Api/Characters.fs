@@ -8,7 +8,7 @@ open Suave.Http
 open Suave.Successful
 
 [<AutoOpen>]
-module Titans =
+module Characters =
     open Suave.RequestErrors
     open Suave.Filters
 

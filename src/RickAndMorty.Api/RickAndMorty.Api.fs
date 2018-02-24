@@ -1,6 +1,6 @@
 namespace RickAndMortyApi
 
-module App =
+module Api =
     open Suave.Web
     open RickAndMortyApi.Rest
     open RickAndMortyApi.Db
