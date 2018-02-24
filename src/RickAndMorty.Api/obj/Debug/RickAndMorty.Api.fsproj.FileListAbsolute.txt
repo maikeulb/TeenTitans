@@ -1,0 +1,5 @@
+/home/michael/Projects-Suave/RickAndMorty/build/RickAndMorty.Api.exe
+/home/michael/Projects-Suave/RickAndMorty/build/RickAndMorty.Api.XML
+/home/michael/Projects-Suave/RickAndMorty/src/RickAndMorty.Api/obj/Debug/RickAndMorty.Api.fsprojResolveAssemblyReference.cache
+/home/michael/Projects-Suave/RickAndMorty/src/RickAndMorty.Api/obj/Debug/RickAndMorty.Api.fsproj.CoreCompileInputs.cache
+/home/michael/Projects-Suave/RickAndMorty/src/RickAndMorty.Api/obj/Debug/RickAndMorty.Api.exe
