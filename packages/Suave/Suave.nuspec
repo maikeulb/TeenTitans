@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Suave</id>
+    <version>2.1.1</version>
+    <title>Suave</title>
+    <authors>Ademar Gonzalez, Henrik Feldt</authors>
+    <owners>Ademar Gonzalez, Henrik Feldt</owners>
+    <licenseUrl>https://github.com/SuaveIO/Suave/blob/master/COPYING</licenseUrl>
+    <projectUrl>http://suave.io</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/SuaveIO/resources/master/images/head_trans.png</iconUrl>
+    <description>Suave is a simple web development F# library providing a lightweight web server and a set of combinators to manipulate route flow and task composition.</description>
+    <releaseNotes>Release Notes:
+* [infra] fixes #559
+* use net core in travis (#624)
+* Merge pull request #623 from enricosada/fix_build_ruby_v
+* f
+* use ruby 2.1.9 in appveyor
+* empty commit
+* [infra] bundle first
+* [infra] push builder to registry
+* [infra] builder
+* [infra] builder ruby
+* [docs] cloudbuild.yaml
+* [docs] cloudbuild.yaml
+* [docs] cloudbuild.yaml
+* [docs] cloudbuild.yaml
+* [docs] cloudbuild.yaml
+* [docs] other phrasing
+* [infra] support building docs/server from Rakefile
+* [docs] make it possible to support Suave
+* [infra] bump albacore to get nuget version gen right
+* Merge pull request #621 from alex-bogomaz/bugs/618-empty-request-parsing
+* Remove empty entries when parsing body and query
+* Merge pull request #620 from alex-bogomaz/bugs/576-cors-expose-headers
+* Make 'exposeHeaders' to be list of strings
+* Merge pull request #619 from danieljsummers/master
+* typo fix for session link
+* create -&gt; validate; updated docs &amp; tests
+* Validate server key (#248) and docs (#368)
+* [doc] correct key size
+* Update logs.md
+* [doc] correct key size
+* Update logs.md
+* Merge pull request #613 from danieljsummers/master
+* Use Crypto.generateKey for key examples
+* Clarified state lifetime differences
+* Merge remote-tracking branch 'refs/remotes/SuaveIO/master'
+* Edited session docs as requested
+* Merge pull request #615 from rmunn/fix-api-docs
+* Fix API doc generation
+* Completed "State and Sessions" page
+* Merge pull request #612 from eugene-g/patch-1
+* Fix typo
+* Updated SuaveConfig on site
+* Merge remote-tracking branch 'refs/remotes/SuaveIO/master'
+* Added Session documentation page
+* Merge pull request #611 from vivainio/master
+* Html.fs: add 'rawText' as a non-html-escaping alternative to 'text'
+* Merge remote-tracking branch 'upstream/master'
+* Adding 'application/pdf' to defaultMimeTypesMap
+* Merge remote-tracking branch 'refs/remotes/SuaveIO/master'</releaseNotes>
+    <copyright>Ademar Gonzalez, Henrik Feldt</copyright>
+    <language>en-GB</language>
+    <dependencies>
+      <group>
+        <dependency id="FSharp.Core" version="4.0.0.1"></dependency>
+      </group>
+      <group targetFramework=".NETStandard1.6">
+        <dependency id="NETStandard.Library" version="1.6.1" exclude="Build,Analyzers"></dependency>
+        <dependency id="FSharp.Core" version="4.1.17" exclude="Build,Analyzers"></dependency>
+        <dependency id="System.Data.Common" version="4.1.0" exclude="Build,Analyzers"></dependency>
+        <dependency id="System.Diagnostics.Process" version="4.1.0" exclude="Build,Analyzers"></dependency>
+        <dependency id="System.Security.Cryptography.Primitives" version="4.3.0" exclude="Build,Analyzers"></dependency>
+        <dependency id="System.Net.Security" version="4.0.0" exclude="Build,Analyzers"></dependency>
+        <dependency id="System.Globalization.Extensions" version="4.3.0" exclude="Build,Analyzers"></dependency>
+        <dependency id="System.Security.Claims" version="4.0.1" exclude="Build,Analyzers"></dependency>
+        <dependency id="System.Runtime.Serialization.Json" version="4.0.2" exclude="Build,Analyzers"></dependency>
+      </group>
+    </dependencies>
+  </metadata>
+</package>

@@ -1,0 +1,7 @@
+/home/michael/Projects-Suave/TeenTitans/build/FsTweet.Web.exe.config
+/home/michael/Projects-Suave/TeenTitans/build/FsTweet.Web.exe
+/home/michael/Projects-Suave/TeenTitans/build/FsTweet.Web.XML
+/home/michael/Projects-Suave/TeenTitans/src/FsTweet.Web/obj/Debug/FsTweet.Web.fsprojResolveAssemblyReference.cache
+/home/michael/Projects-Suave/TeenTitans/src/FsTweet.Web/obj/Debug/FsTweet.Web.exe.config
+/home/michael/Projects-Suave/TeenTitans/src/FsTweet.Web/obj/Debug/FsTweet.Web.fsproj.CoreCompileInputs.cache
+/home/michael/Projects-Suave/TeenTitans/src/FsTweet.Web/obj/Debug/FsTweet.Web.exe
