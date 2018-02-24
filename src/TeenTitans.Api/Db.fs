@@ -11,7 +11,7 @@ type Titan = {
 module Db =
     open FSharp.Data
 
-    let titanStorage = new Dictionary<int, Titan>()
+    let resourceStore = new Dictionary<int, Titan>()
 
     let [<Literal>] URL = "https://rickandmortyapi.com/api/"
     let [<Literal>] CharacterUrl = URL + "character/1"
@@ -53,25 +53,25 @@ module Db =
                 Id          = p.Url.Substring(PageCharacterUrl.Length) |> extractNumber
                 Name        = p.Name
             }
-            titanStorage.Add(newPerson.Id, newPerson))
+            resourceStore.Add(newPerson.Id, newPerson))
     
     let getTitans () =
-        titanStorage.Values :> seq<Titan>
+        resourceStore.Values :> seq<Titan>
     let getTitanById id =
-        if titanStorage.ContainsKey(id) then
-            Some titanStorage.[id]
+        if resourceStore.ContainsKey(id) then
+            Some resourceStore.[id]
         else
             None
     let createTitan person =
-        let id = titanStorage.Values.Count + 1
+        let id = resourceStore.Values.Count + 1
         let newTitan = {person with Id = id}
-        titanStorage.Add(id, newTitan)
+        resourceStore.Add(id, newTitan)
         newTitan
 
     let updateTitanById personId personToBeUpdated =
-        if titanStorage.ContainsKey(personId) then
+        if resourceStore.ContainsKey(personId) then
             let updatedTitan = {personToBeUpdated with Id = personId}
-            titanStorage.[personId] <- updatedTitan
+            resourceStore.[personId] <- updatedTitan
             Some updatedTitan
         else
             None
@@ -80,6 +80,6 @@ module Db =
         updateTitanById personToBeUpdated.Id personToBeUpdated
 
     let deleteTitan personId =
-        titanStorage.Remove(personId) |> ignore
+        resourceStore.Remove(personId) |> ignore
 
-    let titanExists  = titanStorage.ContainsKey
+    let titanExists  = resourceStore.ContainsKey
