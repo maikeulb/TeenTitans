@@ -6,6 +6,10 @@ open System.Collections.Generic
 type Titan = {
     Id : int
     Name : string
+    Status : string
+    Gender : string
+    Species: string
+    Origin : string
 }
 
 module Db =
@@ -52,6 +56,10 @@ module Db =
             let newPerson = {
                 Id          = p.Url.Substring(PageCharacterUrl.Length) |> extractNumber
                 Name        = p.Name
+                Status      = p.Status
+                Gender      = p.Gender
+                Species     = p.Species
+                Origin      = p.Origin.Name
             }
             resourceStore.Add(newPerson.Id, newPerson))
     
