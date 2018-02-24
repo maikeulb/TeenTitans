@@ -53,7 +53,7 @@ module Db =
 
     rickAndMortyCharacter
     |> Seq.iter (fun p -> 
-            let newPerson = {
+            let newCharacter = {
                 Id          = p.Url.Substring(PageCharacterUrl.Length) |> extractNumber
                 Name        = p.Name
                 Status      = p.Status
@@ -61,7 +61,7 @@ module Db =
                 Species     = p.Species
                 Origin      = p.Origin.Name
             }
-            resourceStore.Add(newPerson.Id, newPerson))
+            resourceStore.Add(newCharacter.Id, newCharacter))
     
     let getCharacters () =
         resourceStore.Values :> seq<Titan>
@@ -70,24 +70,24 @@ module Db =
             Some resourceStore.[id]
         else
             None
-    let createCharacter person =
+    let createCharacter character =
         let id = resourceStore.Values.Count + 1
-        let newCharacter = {person with Id = id}
+        let newCharacter = {character with Id = id}
         resourceStore.Add(id, newCharacter)
         newCharacter
 
-    let updateCharacterById personId personToBeUpdated =
-        if resourceStore.ContainsKey(personId) then
-            let updatedCharacter = {personToBeUpdated with Id = personId}
-            resourceStore.[personId] <- updatedCharacter
+    let updateCharacterById characterId characterToBeUpdated =
+        if resourceStore.ContainsKey(characterId) then
+            let updatedCharacter = {characterToBeUpdated with Id = characterId}
+            resourceStore.[characterId] <- updatedCharacter
             Some updatedCharacter
         else
             None
 
-    let updateCharacter personToBeUpdated =
-        updateCharacterById personToBeUpdated.Id personToBeUpdated
+    let updateCharacter characterToBeUpdated =
+        updateCharacterById characterToBeUpdated.Id characterToBeUpdated
 
-    let deleteCharacter personId =
-        resourceStore.Remove(personId) |> ignore
+    let deleteCharacter characterId =
+        resourceStore.Remove(characterId) |> ignore
 
     let characterExists  = resourceStore.ContainsKey
