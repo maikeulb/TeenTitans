@@ -10,6 +10,7 @@ module LocationDb =
         Name : string
         Type : string
         Dimension : string
+        Residents : string []
     }
 
     open FSharp.Data
@@ -19,10 +20,12 @@ module LocationDb =
     let [<Literal>] URL = "https://rickandmortyapi.com/api/"
     let [<Literal>] LocationUrl = URL + "location/1"
     let [<Literal>] PageLocationUrl = URL + "location/"
+    let [<Literal>] CharacterUrl = URL + "character/1"
 
     type RAMAPI = JsonProvider<URL>
     type PageLocation = JsonProvider<PageLocationUrl>
     type Location = JsonProvider<LocationUrl>
+    type Character = JsonProvider<CharacterUrl>
 
     let root = RAMAPI.GetSample()
     let buildUrl url id = sprintf "%s%s" url id
@@ -37,7 +40,9 @@ module LocationDb =
            }
        iter pageUrl
 
-    let rickAndMortyLocation = loadLocation root.Locations
+    let rickAndMortyLocations = loadLocation root.Locations
+
+    let withCharacters = rickAndMortyLocations |> Seq.map (fun p -> p, p.Residents |> Seq.map Character.Load)
 
     let extractNumber (s : string) =
         let nums = 
@@ -50,13 +55,14 @@ module LocationDb =
         | true -> num
         | false -> failwith "No number present"
 
-    rickAndMortyLocation
+    rickAndMortyLocations
     |> Seq.iter (fun p -> 
             let newLocation = {
                 Id          = p.Url.Substring(PageLocationUrl.Length) |> extractNumber
                 Name        = p.Name
                 Type        = p.Type
                 Dimension   = p.Dimension
+                Residents   = p.Residents
             }
             locationStore.Add(newLocation.Id, newLocation))
     
