@@ -42,8 +42,10 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Db.fs" />
+    <Compile Include="CharacterDb.fs" />
+    <Compile Include="LocationDb.fs" />
     <Compile Include="Characters.fs" />
+    <Compile Include="Locations.fs" />
     <Compile Include="RickAndMorty.Api.fs" />
   </ItemGroup>
   <PropertyGroup>

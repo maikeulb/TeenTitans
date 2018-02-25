@@ -9,17 +9,27 @@ module Api =
     [<EntryPoint>]
     let main argv =
 
-        let charactersWebPart = rest "api/characters" {
-            GetCharacters = Db.getCharacters
-            GetCharacterById = Db.getCharacterById
-            CreateCharacter = Db.createCharacter
-            UpdateCharacter = Db.updateCharacter
-            UpdateCharacterById = Db.updateCharacterById
-            DeleteCharacter = Db.deleteCharacter
-            CharacterExists = Db.characterExists
+        let charactersWebPart = charactersRest "api/characters" {
+            GetCharacters = CharacterDb.getCharacters
+            GetCharacterById = CharacterDb.getCharacterById
+            CreateCharacter = CharacterDb.createCharacter
+            UpdateCharacter = CharacterDb.updateCharacter
+            UpdateCharacterById = CharacterDb.updateCharacterById
+            DeleteCharacter = CharacterDb.deleteCharacter
+            CharacterExists = CharacterDb.characterExists
         }
 
-        let app = charactersWebPart
+        let locationWebPart = locationsRest "api/locations" {
+            GetLocations = LocationDb.getLocations
+            GetLocationById = LocationDb.getLocationById
+            CreateLocation = LocationDb.createLocation
+            UpdateLocation = LocationDb.updateLocation
+            UpdateLocationById = LocationDb.updateLocationById
+            DeleteLocation = LocationDb.deleteLocation
+            LocationExists = LocationDb.locationExists
+        }
+
+        let app = choose[charactersWebPart; locationWebPart] 
 
         startWebServer defaultConfig app
 

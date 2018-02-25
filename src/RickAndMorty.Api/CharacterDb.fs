@@ -3,19 +3,19 @@ namespace RickAndMortyApi.Db
 open System
 open System.Collections.Generic
 
-type RickAndMortyCharacter = {
-    Id : int
-    Name : string
-    Status : string
-    Gender : string
-    Species: string
-    Origin : string
-}
-
-module Db =
+module CharacterDb =
     open FSharp.Data
 
-    let resourceStore = new Dictionary<int, RickAndMortyCharacter>()
+    type RickAndMortyCharacter = {
+        Id : int
+        Name : string
+        Status : string
+        Gender : string
+        Species: string
+        Origin : string
+    }
+
+    let characterStore = new Dictionary<int, RickAndMortyCharacter>()
 
     let [<Literal>] URL = "https://rickandmortyapi.com/api/"
     let [<Literal>] CharacterUrl = URL + "character/1"
@@ -61,25 +61,25 @@ module Db =
                 Species     = p.Species
                 Origin      = p.Origin.Name
             }
-            resourceStore.Add(newCharacter.Id, newCharacter))
+            characterStore.Add(newCharacter.Id, newCharacter))
     
     let getCharacters () =
-        resourceStore.Values :> seq<RickAndMortyCharacter>
+        characterStore.Values :> seq<RickAndMortyCharacter>
     let getCharacterById id =
-        if resourceStore.ContainsKey(id) then
-            Some resourceStore.[id]
+        if characterStore.ContainsKey(id) then
+            Some characterStore.[id]
         else
             None
     let createCharacter character =
-        let id = resourceStore.Values.Count + 1
+        let id = characterStore.Values.Count + 1
         let newCharacter = {character with Id = id}
-        resourceStore.Add(id, newCharacter)
+        characterStore.Add(id, newCharacter)
         newCharacter
 
     let updateCharacterById characterId characterToBeUpdated =
-        if resourceStore.ContainsKey(characterId) then
+        if characterStore.ContainsKey(characterId) then
             let updatedCharacter = {characterToBeUpdated with Id = characterId}
-            resourceStore.[characterId] <- updatedCharacter
+            characterStore.[characterId] <- updatedCharacter
             Some updatedCharacter
         else
             None
@@ -88,6 +88,6 @@ module Db =
         updateCharacterById characterToBeUpdated.Id characterToBeUpdated
 
     let deleteCharacter characterId =
-        resourceStore.Remove(characterId) |> ignore
+        characterStore.Remove(characterId) |> ignore
 
-    let characterExists  = resourceStore.ContainsKey
+    let characterExists  = characterStore.ContainsKey

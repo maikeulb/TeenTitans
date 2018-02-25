@@ -8,7 +8,7 @@ open Suave.Http
 open Suave.Successful
 
 [<AutoOpen>]
-module Characters =
+module Locations =
     open Suave.RequestErrors
     open Suave.Filters
 
@@ -27,17 +27,17 @@ module Characters =
         let getString rawForm = System.Text.Encoding.UTF8.GetString(rawForm)
         req.rawForm |> getString |> fromJson<'a>
 
-    type CharactersResource<'a> = {
-        GetCharacters : unit -> 'a seq
-        GetCharacterById : int -> 'a option
-        CharacterExists : int -> bool
-        CreateCharacter : 'a -> 'a
-        UpdateCharacter : 'a -> 'a option
-        UpdateCharacterById : int -> 'a -> 'a option
-        DeleteCharacter : int -> unit
+    type LocationsResource<'a> = {
+        GetLocations : unit -> 'a seq
+        GetLocationById : int -> 'a option
+        LocationExists : int -> bool
+        CreateLocation : 'a -> 'a
+        UpdateLocation : 'a -> 'a option
+        UpdateLocationById : int -> 'a -> 'a option
+        DeleteLocation : int -> unit
     }
 
-    let charactersRest resourceName resource =
+    let locationsRest resourceName resource =
 
         let resourcePath = "/" + resourceName
         let resourceIdPath = new PrintfFormat<(int -> string),unit,string,string,int>(resourcePath + "/%d")
@@ -46,22 +46,22 @@ module Characters =
             | Some r -> r |> JSON
             | _ -> requestError
 
-        let getAllResources= warbler (fun _ -> resource.GetCharacters () |> JSON)
+        let getAllResources= warbler (fun _ -> resource.GetLocations () |> JSON)
         let getResourceById =
-            resource.GetCharacterById >> handleResource (NOT_FOUND "Character not found")
+            resource.GetLocationById >> handleResource (NOT_FOUND "Location not found")
         let updateResourceById id =
-            request (getResourceFromReq >> (resource.UpdateCharacterById id) >> handleResource badRequest)
+            request (getResourceFromReq >> (resource.UpdateLocationById id) >> handleResource badRequest)
         let deleteResourceById id =
-            resource.DeleteCharacter id
+            resource.DeleteLocation id
             NO_CONTENT
         let ResourceExists id =
-            if resource.CharacterExists id then OK "" else NOT_FOUND ""
+            if resource.LocationExists id then OK "" else NOT_FOUND ""
 
         choose [
             path resourcePath >=> choose [
                 GET >=> getAllResources
-                POST >=> request (getResourceFromReq >> resource.CreateCharacter >> JSON)
-                PUT >=> request (getResourceFromReq >> resource.UpdateCharacter >> handleResource badRequest)
+                POST >=> request (getResourceFromReq >> resource.CreateLocation >> JSON)
+                PUT >=> request (getResourceFromReq >> resource.UpdateLocation >> handleResource badRequest)
             ]
             DELETE >=> pathScan resourceIdPath deleteResourceById
             GET >=> pathScan resourceIdPath getResourceById
