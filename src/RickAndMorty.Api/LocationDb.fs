@@ -68,11 +68,13 @@ module LocationDb =
     
     let getLocations () =
         locationStore.Values :> seq<RickAndMortyLocation>
+
     let getLocationById id =
         if locationStore.ContainsKey(id) then
             Some locationStore.[id]
         else
             None
+
     let createLocation location =
         let id = locationStore.Values.Count + 1
         let newLocation = {location with Id = id}

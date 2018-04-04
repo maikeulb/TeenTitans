@@ -3,7 +3,6 @@
 open FSharp.Data
 open System
 
-//Easily talk to a REST API.
 let [<Literal>] URL = "http://swapi.co/api/"
 let [<Literal>] PeopleUrl = URL + "people/1"
 let [<Literal>] PagePeopleUrl = URL + "people/"
@@ -32,4 +31,4 @@ let withFilms = allCharacters |> Seq.map (fun p -> p, p.Films |> Seq.map Film.Lo
 let (_,filmsStarringDarthVader) = withFilms |> Seq.find (fun (p,films) -> p.Name.Contains("Darth Vader"))
 filmsStarringDarthVader |> Seq.map (fun f -> f.Title) |> Seq.toList
 
-printfn "%a" allCharacters
+printfn "%s" filmsStarringDarthVader
