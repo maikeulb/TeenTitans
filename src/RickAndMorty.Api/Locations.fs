@@ -45,7 +45,6 @@ module Locations =
         let handleResource requestError = function
             | Some r -> r |> JSON
             | _ -> requestError
-
         let getAllResources= warbler (fun _ -> resource.GetLocations () |> JSON)
         let getResourceById =
             resource.GetLocationById >> handleResource (NOT_FOUND "Location not found")

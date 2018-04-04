@@ -11,14 +11,14 @@ Technology
 Endpoints
 ---------
 
-### Courses
+### Characters
 | Method     | URI                              | Action                                      |
 |------------|----------------------------------|---------------------------------------------|
 | `GET`      | `/api/characters`                | `Retrieve all characters`                   |
 | `GET`      | `/api/characters/{id}`           | `Retrieve characters`                       |
 | `POST`     | `/api/characters`                | `Add character`                             |
 | `PUT`      | `/api/characters/{id}`           | `Update character`                          |
-| `DELETE`   | `/api/characters/{id}`           | `Delete character`                          |
+| `DELETE`   | `/api/characters/{id}`           | `Remove character`                          |
 
 ### Locations
 | Method     | URI                              | Action                                     |
@@ -27,7 +27,7 @@ Endpoints
 | `GET`      | `/api/locations/{id}`            | `Retrieve location`                        |
 | `POST`     | `/api/locations`                 | `Add location`                             |
 | `PUT`      | `/api/locations/{id}`            | `Update location`                          |
-| `DELETE`   | `/api/locations/{id}`            | `Delete location`                          |
+| `DELETE`   | `/api/locations/{id}`            | `Remove location`                          |
 
 
 Sample Usage
