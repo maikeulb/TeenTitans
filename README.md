@@ -1,6 +1,6 @@
 # Rick And Morty
 
-API client that consumes Rick and Morty data from Rick And Morty API and
+API client that consumes Rick and Morty data from the Rick And Morty API and
 exposes it as a RESTful API.
 
 Technology
@@ -28,7 +28,6 @@ Endpoints
 | `POST`     | `/api/locations`                 | `Add location`                             |
 | `PUT`      | `/api/locations/{id}`            | `Update location`                          |
 | `DELETE`   | `/api/locations/{id}`            | `Remove location`                          |
-
 
 Sample Usage
 ---------------
@@ -84,7 +83,7 @@ Sample Usage
 Run
 ---
 
-You need Mono, forge, and fake. If you meet those requirements, then:
+You need Mono, forge, and fake.
 
 ```
 forge fake run
